@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qsn2</title>
+</head>
+<body>
+    <label>Filter</label>
+    <input id="input" type="text" value="" >
+    <button onclick="filter()">submit</button>
+    <div id="result"></div>
+    <script>
+        function filter(){
+            var data = document.getElementById("input").value;
+            var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+            };
+
+            fetch("http://localhost:8080/student?branch=" + data, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                var arr = [];
+                for(let i in result) {
+                    arr.push(result[i].Name);
+                }
+                document.getElementById("result").innerHTML = arr;
+                //console.log(result)
+            })
+            .catch(error => console.log('error', error));
+        }
+    </script>
+</body>
+</html>
